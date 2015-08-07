@@ -33,7 +33,7 @@ Requires:       xorg-x11-utils
 Compton is a X compositing window manager, fork of xcompmgr-dana.
  
 %prep
-%setup -q -n %{name}-%{release}
+%setup -q -n %{name}-0.1_beta2
 echo '#!/bin/bash' > configure
 chmod +x configure
  
