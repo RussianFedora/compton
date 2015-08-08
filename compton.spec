@@ -5,7 +5,7 @@ Summary:        A compositor for X11
  
 License:        MIT
 URL:            https://github.com/chjj/compton
-Source0:        https://github.com/chjj/compton/archive/v%{version}.tar.gz
+Source0:        https://github.com/chjj/compton/archive/v0.1_beta2.tar.gz
  
 BuildRequires:  make
 BuildRequires:  gcc-c++
