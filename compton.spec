@@ -4,7 +4,7 @@
 
 Name:           compton
 Version:        0.1
-Release:        1.%{date}git%{shortcommit}%{?dist}
+Release:        2.%{date}git%{shortcommit}%{?dist}
 Summary:        A compositor for X11
 
 License:        MIT
@@ -51,6 +51,18 @@ install -Dm644 %{name}.sample.conf %{buildroot}%{_sysconfdir}/xdg/%{name}.sample
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
+%post
+/bin/touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
+
+%postun
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &> /dev/null || :
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
+fi
+
+%posttrans
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
+
 %files
 %doc README.md
 %license LICENSE
@@ -58,10 +70,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_bindir}/%{name}
 %{_bindir}/%{name}-trans
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_mandir}/man1/%{name}.1.*
 %{_mandir}/man1/%{name}-trans.1.*
 
 %changelog
+* Mon Nov 02 2015 Maxim Orlov <murmansksity@gmail.com> - 0.1-2.20150920gitd7f95b5
+- Add icon-cache scriptlets
+- Corrected file list
+
 * Mon Nov 02 2015 Maxim Orlov <murmansksity@gmail.com> - 0.1-1.20150920gitd7f95b5
 - Update to the latest git snapshot
 
